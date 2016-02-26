@@ -153,7 +153,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\common\directives\twilio-video.js" />
+    <Content Include="Scripts\app\common\directives\twilio-volume.js" />
     <Content Include="Scripts\app\home\videochat.js" />
+    <Content Include="Scripts\volume-meter.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

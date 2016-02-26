@@ -20,8 +20,17 @@
         <div id="log">
             <p>&gt;&nbsp;<span id="log-content" ng-bind="log">Preparing to listen</span>...</p>
         </div>
+        <div>
+            <button id="button-mute" ng-click="toggleMute()">Mute</button>
+            <button id="button-camera" ng-click="toggleCamera()">Camera</button>
+            <div>
+                <canvas twilio-volume meter="audioMeter" id="meter" width="300" height="50"></canvas>
+            </div>
+
+        </div>
     </div>
 </div>
 @section scripts {
     @Scripts.Render("~/bundles/videoQuickstart")
+    <script src="~/Scripts/volume-meter.js"></script>
 }

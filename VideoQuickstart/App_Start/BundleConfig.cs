@@ -11,6 +11,7 @@ namespace VideoQuickstart
             bundles.Add(new ScriptBundle("~/bundles/videoQuickstart").Include(
                         "~/Scripts/app/app.js",
                         "~/Scripts/app/common/directives/twilio-video.js",
+                        "~/Scripts/app/common/directives/twilio-volume.js",
                         "~/Scripts/app/home/videochat.js"));
         }
     }

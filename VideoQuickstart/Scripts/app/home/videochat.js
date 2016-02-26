@@ -1,4 +1,4 @@
-﻿angular.module('controllers.videochat', ['directives.twiliovideo'])
+﻿angular.module('controllers.videochat', ['directives.twiliovideo', 'directives.twiliovolume'])
 
     .controller('videochatController', ['$scope', '$http', function ($scope, $http) {
 
@@ -8,6 +8,10 @@
         $scope.inviteTo;
         $scope.log = 'Preparing to listen';
         $scope.clientConnected = false;
+        $scope.audioMeter;
+
+        audioContext = window.AudioContext || window.webkitAudioContext;
+        var audioContext = new AudioContext();
 
         $scope.previewCamera = function () {
             $scope.previewMedia = new Twilio.Conversations.LocalMedia();
@@ -15,11 +19,29 @@
                 function (mediaStream) {
                     $scope.$apply(function () {
                         $scope.previewMedia.addStream(mediaStream);
+
+                        var mediaStreamSource = audioContext.createMediaStreamSource(mediaStream);
+                        $scope.audioMeter = createAudioMeter(audioContext);
+                        mediaStreamSource.connect($scope.audioMeter);
                     });
                 },
                 function (error) {
                     console.error('Unable to access local media', error);
                 });
+        }
+
+        var muted = false;
+        $scope.toggleMute = function () {
+            if ($scope.previewMedia) {
+                $scope.previewMedia.mute(!$scope.previewMedia.isMuted);
+            }
+        }
+
+        var camera = false;
+        $scope.toggleCamera = function () {
+            if ($scope.previewMedia) {
+                $scope.previewMedia.pause(!$scope.previewMedia.isPaused);
+            }
         }
 
         $scope.sendInvite = function () {
@@ -73,6 +95,13 @@
         }
 
         function conversationStarted(conversation) {
+
+            var mediaStreamSource = audioContext.createMediaStreamSource(conversation.localMedia.audioTracks[0]);
+            meter = createAudioMeter(audioContext);
+            mediaStreamSource.connect(meter);
+            drawLoop();
+
+
             $scope.$apply(function () {
                 $scope.log = 'In an active Conversation';
                 $scope.activeConversation = conversation;
@@ -113,4 +142,70 @@
                 activeConversation = null;
             });
         }
+
+        //function drawLoop(time) {
+
+        //    canvasContext.clearRect(0, 0, 300, 50);
+
+        //    // check if we're currently clipping
+        //    if (meter.checkClipping())
+        //        canvasContext.fillStyle = "red";
+        //    else
+        //        canvasContext.fillStyle = "green";
+
+        //    var w = meter.volume * 300 * 1.4;
+        //    canvasContext.fillRect(0, 0, w, 50);
+
+        //    // set up the next visual callback
+        //    rafID = window.requestAnimationFrame(drawLoop);
+        //}
     }])
+
+
+/*
+var canvasContext = document.getElementById("meter").getContext("2d");
+
+//Step 1: Create an AudioContext, our generic audio-processing graph
+var audioContext = new AudioContext();
+
+if (navigator.getUserMedia) {
+
+    navigator.getUserMedia(
+        { audio: true },
+        function (stream) {
+            var localAudio = document.querySelector("audio#local-audio");
+            localAudio.src = window.URL.createObjectURL(stream);
+
+            //Step 2: Create a new mediaStreamSource
+            //Step 3: Create a new AudioMeter
+            //Step 4: Connect the meter to the mediastreamsource
+            //Step 5: start drawLoop
+            var mediaStreamSource = audioContext.createMediaStreamSource(stream);
+            meter = createAudioMeter(audioContext);
+            mediaStreamSource.connect(meter);
+            drawLoop();
+
+
+        },
+        function (err) {
+            console.log(err);
+        });
+}
+
+function drawLoop(time) {
+
+    canvasContext.clearRect(0, 0, 300, 50);
+
+    // check if we're currently clipping
+    if (meter.checkClipping())
+        canvasContext.fillStyle = "red";
+    else
+        canvasContext.fillStyle = "green";
+
+    var w = meter.volume * 300 * 1.4;
+    canvasContext.fillRect(0, 0, w, 50);
+
+    // set up the next visual callback
+    rafID = window.requestAnimationFrame(drawLoop);
+}
+*/
