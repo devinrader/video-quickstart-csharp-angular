@@ -3,11 +3,11 @@
 
     angular
         .module('app.core.services', [])
-        .factory('tokenservice', tokenservice)
-  
-    tokenservice.$inject = ['$http'];
-    
-    function tokenservice($http) {
+        .factory('tokenService', tokenService);
+
+    tokenService.$inject = ['$http'];
+
+    function tokenService($http) {
         var service = {
             getToken: function getToken() {
                 return $http.get('/token')
