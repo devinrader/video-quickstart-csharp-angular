@@ -151,11 +151,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\app\app.js" />
-    <Content Include="Scripts\app\common\directives\twilio-video.js" />
-    <Content Include="Scripts\app\common\directives\twilio-volume.js" />
-    <Content Include="Scripts\app\home\videochat.js" />
-    <Content Include="Scripts\volume-meter.js" />
+    <Content Include="Scripts\app\app.module.js" />
+    <Content Include="Scripts\app\core\directives\twilio-video.directive.js" />
+    <Content Include="Scripts\app\core\services\token.service.js" />
+    <Content Include="Scripts\app\videochat\videochat.controller.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

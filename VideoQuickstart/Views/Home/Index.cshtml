@@ -2,35 +2,29 @@
     ViewBag.Title = "Twilio Video Quickstart";
 }
 
-<div ng-app="twilioVideoExample" ng-controller="videochatController">
-    <div ng-repeat="(s, m) in remoteParticipants">
-        <twilio-video id="remote-media" media="m"></twilio-video>
+<div ng-app="app" ng-controller="VideoChatController as vm">
+    <div ng-repeat="(sid, media) in vm.remoteParticipants">
+        <twilio-video id="remote-media" media="media"></twilio-video>
     </div>
     <div id="controls">
         <div id="preview">
             <p class="instructions">Hello Beautiful</p>
-            <twilio-video id="local-media" media="previewMedia"></twilio-video>
-            <button id="button-preview" ng-click="previewCamera()">Preview My Camera</button>
+            <twilio-video id="local-media" media="vm.previewMedia"></twilio-video>
+            <button id="button-preview" ng-click="vm.previewCamera()">Preview My Camera</button>
         </div>
-        <div id="invite-controls" ng-style="clientConnected && {'display':'block'}">
+        <div id="invite-controls" ng-style="vm.clientConnected && {'display':'block'}">
             <p class="instructions">Invite another Video Client</p>
-            <input id="invite-to" type="text" placeholder="Identity to send an invite to" ng-model="inviteTo" />
-            <button id="button-invite" ng-click="sendInvite()">Send Invite</button>
+            <input id="invite-to" type="text" placeholder="Identity to send an invite to" ng-model="vm.inviteTo" />
+            <button id="button-invite" ng-click="vm.sendInvite()">Send Invite</button>
         </div>
         <div id="log">
-            <p>&gt;&nbsp;<span id="log-content" ng-bind="log">Preparing to listen</span>...</p>
-        </div>
-        <div>
-            <button id="button-mute" ng-click="toggleMute()">Mute</button>
-            <button id="button-camera" ng-click="toggleCamera()">Camera</button>
-            <div>
-                <canvas twilio-volume meter="audioMeter" id="meter" width="300" height="50"></canvas>
-            </div>
-
+            <p>&gt;&nbsp;<span id="log-content" ng-bind="vm.log">Preparing to listen</span>...</p>
         </div>
     </div>
 </div>
 @section scripts {
-    @Scripts.Render("~/bundles/videoQuickstart")
-    <script src="~/Scripts/volume-meter.js"></script>
+    <script src="/Scripts/app/app.module.js" type="text/javascript"></script>
+    <script src="/Scripts/app/core/directives/twilio-video.directive.js" type="text/javascript"></script>
+    <script src="/Scripts/app/core/services/token.service.js" type="text/javascript"></script>
+    <script src="/Scripts/app/videochat/videochat.controller.js" type="text/javascript"></script>
 }
