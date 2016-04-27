@@ -96,8 +96,8 @@
             // When a participant joins, draw their video on screen
             conversation.on('participantConnected', function (participant) {
                 $scope.$apply(function () {
-                    $log.log("Participant '" + participant.identity + "' connected");
-                    vm.log = "Participant '" + participant.identity + "' connected";
+                    $log.log('Participant "' + participant.identity + '" connected');
+                    vm.log = 'Participant "' + participant.identity + '" connected';
                     vm.remoteParticipants[participant.sid] = participant.media;
                 });
             });
@@ -105,7 +105,7 @@
             // When a participant disconnects, note in log
             conversation.on('participantDisconnected', function (participant) {
                 $scope.$apply(function () {
-                    vm.log = "Participant '" + participant.identity + "' disconnected";
+                    vm.log = 'Participant "' + participant.identity + '" disconnected';
                     delete vm.remoteParticipants[participant.sid];
                 });
             });
