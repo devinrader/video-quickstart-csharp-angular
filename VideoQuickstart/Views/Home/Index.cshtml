@@ -3,8 +3,10 @@
 }
 
 <div ng-app="app" ng-controller="VideoChatController as vm">
-    <div ng-repeat="(sid, media) in vm.remoteParticipants">
-        <twilio-video id="remote-media" media="media"></twilio-video>
+    <div style="display: flex; justify-content:center;">
+        <div ng-repeat="(sid, media) in vm.remoteParticipants">
+            <twilio-video id="remote-media" media="media"></twilio-video>
+        </div>
     </div>
     <div id="controls">
         <div id="preview">
