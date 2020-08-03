@@ -1,4 +1,4 @@
-*This application uses Twilio Video API's and SDK's that have been depricated. For the latest versions of Twilio Video please visit https://www.twilio.com/docs/video*
+<span style="color:red">*This application uses Twilio Video API's and SDK's that have been depricated. For the latest versions of Twilio Video please visit https://www.twilio.com/docs/video*</span>
 
 
 # Video Quickstart for C# (ASP.NET MVC)
