@@ -1,3 +1,6 @@
+*This application uses Twilio Video API's and SDK's that have been depricated. For the latest versions of Twilio Video please visit https://www.twilio.com/docs/video*
+
+
 # Video Quickstart for C# (ASP.NET MVC)
 
 This application should give you a ready-made starting point for writing your
